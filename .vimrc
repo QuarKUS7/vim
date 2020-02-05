@@ -1,5 +1,6 @@
 " Sekcia pre luginy
 call plug#begin('~/.vim/plugged')
+Plug 'Lokaltog/powerline'
 Plug 'preservim/nerdtree'
 Plug 'mileszs/ack.vim'
 call plug#end()
@@ -7,6 +8,12 @@ call plug#end()
 " =================================================
 " Zapnutie farbenia podla syntaxe
 syntax on
+
+" Neokompatibilny mod s Vi
+set nocompatible
+
+" Ziaden uvodny text
+set shortmess+=I
 
 " Color shema
 set background=dark
@@ -16,6 +23,9 @@ colorscheme onedark
 set softtabstop=4
 " Stlacim tab tak to da 4 medzeri
 set expandtab
+
+" Normalne spravanie backspaceu
+set backspace=indent,eol,start
 
 " Zobraz cisla riadkov
 set number
@@ -43,9 +53,9 @@ autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR>
 " Ukaz hidden files
 let NERDTreeShowHidden=1
+
 " Powerline
-set  rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim/
-set laststatus=2
+set  rtp+=/usr/local/lib/python3.5/dist-packages/powerline/bindings/vim/
 set t_Co=256
 
 " Nepouzivaj sipky!
