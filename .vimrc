@@ -1,12 +1,12 @@
 " Sekcia pre luginy
 call plug#begin('~/.vim/plugged')
-Plug 'Lokaltog/powerline'
 Plug 'preservim/nerdtree'
 Plug 'mileszs/ack.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'morhetz/gruvbox'
 Plug 'vim-python/python-syntax'
-Plug 'itchyny/lightline.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
 Plug 'mhinz/vim-startify'
 Plug 'ap/vim-buftabline'
 call plug#end()
@@ -30,6 +30,7 @@ colorscheme gruvbox
 " Pocet medzier na jeden tab
 set softtabstop=4
 " Stlacim tab tak to da 4 medzeri
+set shiftwidth=4
 set expandtab
 " 7 riadkov okolo kurzoru
 set so=7
@@ -91,6 +92,14 @@ let g:startify_change_to_vcs_root = 0
 
 " Buffers
 set hidden
+" Buffers switching
+map gn :bn<cr>
+map gp :bp<cr>
+map gd :bd<cr>  
+
+" Vlozi prazdny riadok na enter
+nmap <S-Enter> O<Esc>
+nmap <CR> o<Esc>
 
 " Nepouzivaj sipky!
 nnoremap <Left>  :echoe "Use h"<CR>
