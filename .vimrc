@@ -53,6 +53,10 @@ set laststatus=2
 " Indentacia dalsieho riadku podla predosleho
 set autoindent
 
+" Urdzuj undo historiu medzi sessnami
+set undofile
+set undodir=~/.vim/undo-dir
+
 " Podpora pre mysku
 " set mouse+=a
 " Z insert mod do Normal mode pomocou jj
@@ -102,6 +106,7 @@ map gd :bd<cr>
 " Vlozi prazdny riadok na enter
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
+
 
 " Nepouzivaj sipky!
 nnoremap <Left>  :echoe "Use h"<CR>
