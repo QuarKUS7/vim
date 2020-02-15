@@ -1,4 +1,4 @@
-" Sekcia pre luginy
+" Sekcia pre pluginy
 call plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdtree'
 Plug 'mileszs/ack.vim'
@@ -54,7 +54,9 @@ set laststatus=2
 set autoindent
 
 " Podpora pre mysku
-set mouse+=a
+" set mouse+=a
+" Z insert mod do Normal mode pomocou jj
+imap jj <Esc>
 
 " Hladanie v modernom style
 set incsearch
