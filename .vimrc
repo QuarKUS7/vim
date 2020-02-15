@@ -1,14 +1,15 @@
-" Sekcia pre pluginy
 call plug#begin('~/.vim/plugged')
-Plug 'preservim/nerdtree'
-Plug 'mileszs/ack.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'morhetz/gruvbox'
-Plug 'vim-python/python-syntax'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'mhinz/vim-startify'
-Plug 'ap/vim-buftabline'
+Plug 'preservim/nerdtree' " Filemanager
+Plug 'mileszs/ack.vim' " Search cez cely projekt
+Plug 'ctrlpvim/ctrlp.vim' " Vyhladavanie fileou podla mena
+Plug 'morhetz/gruvbox' " Theme
+Plug 'vim-python/python-syntax' " Python
+Plug 'tpope/vim-fugitive' " Git
+Plug 'vim-airline/vim-airline' " Airline
+Plug 'mhinz/vim-startify' " Startup menu
+Plug 'ap/vim-buftabline' " Buffery
+Plug 'nvie/vim-flake8' " PEP8 python
+Plug 'rodjek/vim-puppet' " Puppety
 call plug#end()
 
 " =================================================
@@ -21,7 +22,7 @@ set nocompatible
 " Ziaden uvodny text
 set shortmess+=I
 
-" Color shema
+" Color schema
 set background=dark
 let g:gruvbox_contrast_dark = 'hard'
 set termguicolors
@@ -32,13 +33,13 @@ set softtabstop=4
 " Stlacim tab tak to da 4 medzeri
 set shiftwidth=4
 set expandtab
-" 7 riadkov okolo kurzoru
-set so=7
+" Pocet riadkov okolo kurzoru
+set so=10
 
 " Normalne spravanie backspaceu
 set backspace=indent,eol,start
 
-" Otvaranie novych splitov
+" Pozicia otvorenia novych splitov
 set splitbelow
 set splitright
 
@@ -59,6 +60,7 @@ set undodir=~/.vim/undo-dir
 
 " Podpora pre mysku
 " set mouse+=a
+
 " Z insert mod do Normal mode pomocou jj
 imap jj <Esc>
 
@@ -91,7 +93,7 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Startify nastaveni
+" Startify nastavenie
 let g:startify_bookmarks = [{'c': '~/.vimrc'}, {'lua': '/home/peter/Desktop/praca/lua'}, {'ng': '/home/peter/Desktop/praca/ng_cdn'}]
 let g:startify_change_to_dir = 1
 let g:startify_change_to_vcs_root = 0
@@ -99,8 +101,11 @@ let g:startify_change_to_vcs_root = 0
 " Buffers
 set hidden
 " Buffers switching
+" Dalsi buffer
 map gn :bn<cr>
+" Predtym buffer
 map gp :bp<cr>
+" Zavri buffer
 map gd :bd<cr>  
 
 " Vlozi prazdny riadok na enter
