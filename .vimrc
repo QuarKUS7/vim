@@ -19,6 +19,9 @@ syntax on
 " Neokompatibilny mod s Vi
 set nocompatible
 
+" Nezobrazuj mode, leno uz je v statusline
+set noshowmode
+
 " Ziaden uvodny text
 set shortmess+=I
 
@@ -58,8 +61,8 @@ set autoindent
 set undofile
 set undodir=~/.vim/undo-dir
 
-" Podpora pre mysku
-" set mouse+=a
+" Podpora pre mysku v normal mode iba
+set mouse=n
 
 " Z insert mod do Normal mode pomocou jj
 imap jj <Esc>
@@ -73,6 +76,10 @@ set smartcase
 " Vyfarbi vysledky vyhladavanie
 set hlsearch
 
+" Sem ukladaj vsetky swapy
+set backupdir=/tmp//
+set directory=/tmp//
+
 " Python syntax
 let g:python_highlight_all = 1
 
@@ -84,7 +91,7 @@ let g:python_highlight_all = 1
 " Ukaz hidden files
 let NERDTreeShowHidden=1
 " Zavri VIM aj nerdthree ak je posledny buffer len nerdthree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") 
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")
       \ && b:NERDTree.isTabTree()) | q | endif
 
 " Lepsi pohyb pohyb medzi panelmi
@@ -98,7 +105,7 @@ let g:startify_bookmarks = [{'c': '~/.vimrc'}, {'lua': '/home/peter/Desktop/prac
 let g:startify_change_to_dir = 1
 let g:startify_change_to_vcs_root = 0
 
-" Buffers
+" Pouzitie hidden bufferov
 set hidden
 " Buffers switching
 " Dalsi buffer
@@ -106,7 +113,7 @@ map gn :bn<cr>
 " Predtym buffer
 map gp :bp<cr>
 " Zavri buffer
-map gd :bd<cr>  
+map gd :bd<cr>
 
 " Vlozi prazdny riadok na enter
 nmap <S-Enter> O<Esc>
