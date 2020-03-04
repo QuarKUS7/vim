@@ -1,6 +1,5 @@
 call plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdtree' " Filemanager
-Plug 'mileszs/ack.vim' " Search cez cely projekt
 Plug 'ctrlpvim/ctrlp.vim' " Vyhladavanie fileou podla mena
 Plug 'morhetz/gruvbox' " Theme
 Plug 'vim-python/python-syntax' " Python
@@ -10,11 +9,16 @@ Plug 'mhinz/vim-startify' " Startup menu
 Plug 'ap/vim-buftabline' " Buffery
 Plug 'nvie/vim-flake8' " PEP8 python
 Plug 'rodjek/vim-puppet' " Puppety
+Plug 'wsdjeg/FlyGrep.vim' " FlyGrep search
 call plug#end()
 
 " =================================================
+"
 " Zapnutie farbenia podla syntaxe
 syntax on
+
+" Leader key
+let mapleader = ','
 
 " Neokompatibilny mod s Vi
 set nocompatible
@@ -75,6 +79,8 @@ set ignorecase
 set smartcase
 " Vyfarbi vysledky vyhladavanie
 set hlsearch
+" Vypni highlight po konci hladania
+nnoremap <C-c><C-c> :noh<cr>
 
 " Sem ukladaj vsetky swapy
 set backupdir=/tmp//
@@ -86,8 +92,11 @@ let g:python_highlight_all = 1
 " Otvorit nerdtree automaticky
 " autocmd vimenter * NERDTree
 
+" FlyGrep spustenie
+nnoremap <leader>/ :FlyGrep<cr>
+
 " Otvor nerdtree
- map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
 " Ukaz hidden files
 let NERDTreeShowHidden=1
 " Zavri VIM aj nerdthree ak je posledny buffer len nerdthree
@@ -101,9 +110,9 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Startify nastavenie
-let g:startify_bookmarks = [{'c': '~/.vimrc'}, {'lua': '/home/peter/Desktop/praca/lua'}, {'ng': '/home/peter/Desktop/praca/ng_cdn'}]
+let g:startify_bookmarks = [{'c': '~/.vimrc'}, {'lua': '~/praca/lua'}, {'ng': '~/praca/ng_cdn'}, {'site': '~/praca/new-puppet/site'}, {'hiera': '~/praca/new-puppet/hiera/cdn'}, {'heat': '~/praca/heat'}]
 let g:startify_change_to_dir = 1
-let g:startify_change_to_vcs_root = 0
+let g:startify_change_to_vcs_root = 1
 
 " Pouzitie hidden bufferov
 set hidden
@@ -111,14 +120,13 @@ set hidden
 " Dalsi buffer
 map gn :bn<cr>
 " Predtym buffer
-map gp :bp<cr>
+map gN :bp<cr>
 " Zavri buffer
 map gd :bd<cr>
 
 " Vlozi prazdny riadok na enter
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
-
 
 " Nepouzivaj sipky!
 nnoremap <Left>  :echoe "Use h"<CR>
