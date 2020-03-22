@@ -43,6 +43,9 @@ set expandtab
 " Pocet riadkov okolo kurzoru
 set so=10
 
+" Lua file tab na 2 medzeri
+autocmd FileType lua setlocal ts=2 sts=2 sw=2 expandtab
+
 " Normalne spravanie backspaceu
 set backspace=indent,eol,start
 
