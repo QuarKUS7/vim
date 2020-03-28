@@ -10,6 +10,7 @@ Plug 'ap/vim-buftabline' " Buffery
 Plug 'nvie/vim-flake8' " PEP8 python
 Plug 'rodjek/vim-puppet' " Puppety
 Plug 'wsdjeg/FlyGrep.vim' " FlyGrep search
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 " =================================================
