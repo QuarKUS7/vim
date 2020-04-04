@@ -90,6 +90,11 @@ nnoremap <C-c><C-c> :noh<cr>
 set backupdir=/tmp//
 set directory=/tmp//
 
+" tab ukaze navrhy
+set wildmode=longest,list
+" menu pre tabove navrhy
+set wildmenu
+
 " Python syntax
 let g:python_highlight_all = 1
 
