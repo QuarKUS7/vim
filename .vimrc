@@ -8,14 +8,14 @@ Plug 'vim-airline/vim-airline' " Airline
 Plug 'mhinz/vim-startify' " Startup menu
 Plug 'ap/vim-buftabline' " Buffery
 Plug 'nvie/vim-flake8' " PEP8 python
-Plug 'rodjek/vim-puppet' " Puppety
+Plug 'rodjek/vim-puppet' " Puppet
 Plug 'wsdjeg/FlyGrep.vim' " FlyGrep search
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator' "tmux vim
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " Go
+Plug 'chr4/nginx.vim' " syntax for nginx configs
+Plug 'jiangmiao/auto-pairs'
 call plug#end()
-
-" =================================================
-"
-" Zapnutie farbenia podla syntaxe
+" ================================================= " " Zapnutie farbenia podla syntaxe
 syntax on
 
 " Leader key
@@ -46,6 +46,7 @@ set so=10
 
 " Lua file tab na 2 medzeri
 autocmd FileType lua setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType go setlocal ts=2 sts=2 sw=2 expandtab
 
 " Normalne spravanie backspaceu
 set backspace=indent,eol,start
@@ -137,6 +138,26 @@ map gd :bd<cr>
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
 
+" ================== GO nastavenia =========================
+" vim-go go-run na leader + p
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
+" vim-go go-test na leader + t
+autocmd FileType go nmap <leader>t  <Plug>(go-test)
+" Funckcia pusti bud build alebo testcompile ak existuje test k packegu
+" leader + b
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+"=========================================================
+"
 " Nepouzivaj sipky!
 nnoremap <Left>  :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
