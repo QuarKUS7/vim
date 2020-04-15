@@ -13,9 +13,10 @@ Plug 'wsdjeg/FlyGrep.vim' " FlyGrep search
 Plug 'christoomey/vim-tmux-navigator' "tmux vim
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " Go
 Plug 'chr4/nginx.vim' " syntax for nginx configs
-Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs' " auto druha zatvorka
 call plug#end()
-" ================================================= " " Zapnutie farbenia podla syntaxe
+" ================================================= 
+" Zapnutie farbenia podla syntaxe
 syntax on
 
 " Leader key
@@ -44,10 +45,6 @@ set expandtab
 " Pocet riadkov okolo kurzoru
 set so=10
 
-" Lua file tab na 2 medzeri
-autocmd FileType lua setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType go setlocal ts=2 sts=2 sw=2 expandtab
-
 " Normalne spravanie backspaceu
 set backspace=indent,eol,start
 
@@ -73,9 +70,6 @@ set undodir=~/.vim/undo-dir
 " Podpora pre mysku v normal mode iba
 set mouse=n
 
-" Z insert mod do Normal mode pomocou jj
-imap jj <Esc>
-
 " Hladanie v modernom style
 set incsearch
 " Ignorovanie velkosti
@@ -84,8 +78,6 @@ set ignorecase
 set smartcase
 " Vyfarbi vysledky vyhladavanie
 set hlsearch
-" Vypni highlight po konci hladania
-nnoremap <C-c><C-c> :noh<cr>
 
 " Sem ukladaj vsetky swapy
 set backupdir=/tmp//
@@ -96,22 +88,23 @@ set wildmode=longest,list
 " menu pre tabove navrhy
 set wildmenu
 
+" Pouzitie hidden bufferov
+set hidden
 " Python syntax
 let g:python_highlight_all = 1
 
-" Otvorit nerdtree automaticky
-" autocmd vimenter * NERDTree
+" Lua file tab na 2 medzeri
+autocmd FileType lua setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType go setlocal ts=2 sts=2 sw=2 expandtab
 
 " FlyGrep spustenie
 nnoremap <leader>/ :FlyGrep<cr>
 
-" Otvor nerdtree
-map <C-n> :NERDTreeToggle<CR>
-" Ukaz hidden files
-let NERDTreeShowHidden=1
-" Zavri VIM aj nerdthree ak je posledny buffer len nerdthree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")
-      \ && b:NERDTree.isTabTree()) | q | endif
+" Vypni highlight po konci hladania
+nnoremap <C-c><C-c> :noh<cr>
+
+" Z insert mod do Normal mode pomocou jj
+imap jj <Esc>
 
 " Lepsi pohyb pohyb medzi panelmi
 map <C-j> <C-W>j
@@ -119,13 +112,6 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Startify nastavenie
-let g:startify_bookmarks = [{'c': '~/.vimrc'}, {'lua': '~/praca/lua'}, {'ng': '~/praca/ng_cdn'}, {'site': '~/praca/new-puppet/site'}, {'hiera': '~/praca/new-puppet/hiera/cdn'}, {'heat': '~/praca/heat'}]
-let g:startify_change_to_dir = 1
-let g:startify_change_to_vcs_root = 1
-
-" Pouzitie hidden bufferov
-set hidden
 " Buffers switching
 " Dalsi buffer
 map gn :bn<cr>
@@ -138,11 +124,26 @@ map gd :bd<cr>
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
 
+" ================= NerdTree nastavenie ====================
+" Otvor nerdtree
+map <C-n> :NERDTreeToggle<CR>
+" Ukaz hidden files
+let NERDTreeShowHidden=1
+" Zavri VIM aj nerdthree ak je posledny buffer len nerdthree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")
+      \ && b:NERDTree.isTabTree()) | q | endif
+
+" =================  Startify nastavenie ===================
+let g:startify_bookmarks = [{'c': '~/.vimrc'}, {'lua': '~/praca/lua'}, {'ng': '~/praca/ng_cdn'}, {'site': '~/praca/new-puppet/site'}, {'hiera': '~/praca/new-puppet/hiera/cdn'}, {'heat': '~/praca/heat'}]
+let g:startify_change_to_dir = 1
+let g:startify_change_to_vcs_root = 1
+
 " ================== GO nastavenia =========================
 " vim-go go-run na leader + p
 autocmd FileType go nmap <leader>r  <Plug>(go-run)
 " vim-go go-test na leader + t
 autocmd FileType go nmap <leader>t  <Plug>(go-test)
+
 " Funckcia pusti bud build alebo testcompile ak existuje test k packegu
 " leader + b
 function! s:build_go_files()
@@ -153,7 +154,6 @@ function! s:build_go_files()
     call go#cmd#Build(0)
   endif
 endfunction
-
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 "=========================================================
