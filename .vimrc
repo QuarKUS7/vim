@@ -116,7 +116,7 @@ map <C-l> <C-W>l
 " Dalsi buffer
 map gn :bn<cr>
 " Predtym buffer
-map gN :bp<cr>
+map gp :bp<cr>
 " Zavri buffer
 map gd :bd<cr>
 
@@ -157,7 +157,6 @@ endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 "=========================================================
-"
 " Nepouzivaj sipky!
 nnoremap <Left>  :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
