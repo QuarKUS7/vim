@@ -4,6 +4,7 @@ Plug 'ctrlpvim/ctrlp.vim' " Vyhladavanie fileou podla mena
 Plug 'morhetz/gruvbox' " Theme
 Plug 'vim-python/python-syntax' " Python
 Plug 'tpope/vim-fugitive' " Git
+Plug 'airblade/vim-gitgutter' " Git diff in sign column
 Plug 'vim-airline/vim-airline' " Airline
 Plug 'mhinz/vim-startify' " Startup menu
 Plug 'ap/vim-buftabline' " Buffery
@@ -18,6 +19,12 @@ call plug#end()
 " ================================================= 
 " Zapnutie farbenia podla syntaxe
 syntax on
+
+" gitgutter config
+set updatetime=250
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
+nmap ghp <Plug>(GitGutterPreviewHunk)
 
 " Leader key
 let mapleader = ','
