@@ -10,7 +10,7 @@ Plug 'mhinz/vim-startify' " Startup menu
 Plug 'ap/vim-buftabline' " Buffery
 Plug 'nvie/vim-flake8' " PEP8 python
 Plug 'rodjek/vim-puppet' " Puppet
-Plug 'wsdjeg/FlyGrep.vim' " FlyGrep search
+Plug 'wsdjeg/FlyGrep.vim', { 'frozen': 1 } " FlyGrep search - error last commit
 Plug 'christoomey/vim-tmux-navigator' "tmux vim
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " Go
 Plug 'chr4/nginx.vim' " syntax for nginx configs
@@ -62,7 +62,7 @@ set splitright
 " Zobraz cisla riadkov
 set number
 " Relativne riadkovanie
-set relativenumber
+"set relativenumber
 
 " Zobrazenie statusovej liny
 set laststatus=2
@@ -141,7 +141,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")
       \ && b:NERDTree.isTabTree()) | q | endif
 
 " =================  Startify nastavenie ===================
-let g:startify_bookmarks = [{'c': '~/.vimrc'}, {'lua': '~/praca/lua'}, {'ng': '~/praca/ng_cdn'}, {'site': '~/praca/new-puppet/site'}, {'hiera': '~/praca/new-puppet/hiera/cdn'}, {'heat': '~/praca/heat'}]
+let g:startify_bookmarks = [{'c': '~/.vimrc'}, {'lua': '~/praca/lua'}, {'ng': '~/praca/ng_cdn'}, {'site': '~/praca/new-puppet/site'}, {'hiera': '~/praca/new-puppet/hiera/cdn'}, {'heat': '~/praca/heat'}, {'i3': '~/.config/i3/config'}]
 let g:startify_change_to_dir = 1
 let g:startify_change_to_vcs_root = 1
 
