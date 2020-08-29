@@ -15,8 +15,10 @@ Plug 'christoomey/vim-tmux-navigator' "tmux vim
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " Go
 Plug 'chr4/nginx.vim' " syntax for nginx configs
 Plug 'jiangmiao/auto-pairs' " auto druha zatvorka
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 call plug#end()
-" ================================================= 
+" =================================================
 " Zapnutie farbenia podla syntaxe
 syntax on
 
@@ -125,7 +127,7 @@ map gn :bn<cr>
 " Predtym buffer
 map gp :bp<cr>
 " Zavri buffer
-map gd :bd<cr>
+map gc :bd<cr>
 
 " Vlozi prazdny riadok na enter
 nmap <S-Enter> O<Esc>
@@ -162,6 +164,16 @@ function! s:build_go_files()
   endif
 endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+
+" Listovanie v medzi navrhmi commandov
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" FZF :Files hladanie files
+nnoremap <C-p> :Files<Cr>
+
+" aby sa dalo kopirovat z vim clipboardu priamo do systemoveho clipboardu
+set clipboard=unnamedplus
 
 "=========================================================
 " Nepouzivaj sipky!
