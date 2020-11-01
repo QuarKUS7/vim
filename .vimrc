@@ -24,17 +24,20 @@ syntax on
 
 " gitgutter config
 set updatetime=250
-nmap ]h <Plug>(GitGutterNextHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
+nmap hn <Plug>(GitGutterNextHunk)
+nmap hp <Plug>(GitGutterPrevHunk)
 nmap ghp <Plug>(GitGutterPreviewHunk)
 
 " Leader key
 let mapleader = ','
 
+" W sa rovna w
+command W w
+
 " Neokompatibilny mod s Vi
 set nocompatible
 
-" Nezobrazuj mode, leno uz je v statusline
+" Nezobrazuj mode, lebo uz je v statusline
 set noshowmode
 
 " Ziaden uvodny text
@@ -116,10 +119,10 @@ nnoremap <C-c><C-c> :noh<cr>
 imap jj <Esc>
 
 " Lepsi pohyb pohyb medzi panelmi
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-h> <C-w>h
+map <C-l> <C-w>l
 
 " Buffers switching
 " Dalsi buffer
