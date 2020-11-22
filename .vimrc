@@ -3,8 +3,8 @@ Plug 'preservim/nerdtree' " Filemanager
 Plug 'ctrlpvim/ctrlp.vim' " Vyhladavanie fileou podla mena
 Plug 'morhetz/gruvbox' " Theme
 Plug 'vim-python/python-syntax' " Python
-Plug 'tpope/vim-fugitive' " Git
 Plug 'airblade/vim-gitgutter' " Git diff in sign column
+Plug 'tpope/vim-fugitive' " Git
 Plug 'vim-airline/vim-airline' " Airline
 Plug 'mhinz/vim-startify' " Startup menu
 Plug 'ap/vim-buftabline' " Buffery
@@ -107,6 +107,7 @@ let g:python_highlight_all = 1
 
 " Lua file tab na 2 medzeri
 autocmd FileType lua setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType go setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType go setlocal ts=2 sts=2 sw=2 expandtab
 
 " FlyGrep spustenie
