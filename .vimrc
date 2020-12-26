@@ -1,38 +1,38 @@
 call plug#begin('~/.vim/plugged')
 Plug 'preservim/nerdtree' " Filemanager
-Plug 'ctrlpvim/ctrlp.vim' " Vyhladavanie fileou podla mena
 Plug 'morhetz/gruvbox' " Theme
 Plug 'vim-python/python-syntax' " Python
 Plug 'airblade/vim-gitgutter' " Git diff in sign column
-Plug 'tpope/vim-fugitive' " Git
+Plug 'tpope/vim-fugitive' " Git - actual branch in airline
 Plug 'vim-airline/vim-airline' " Airline
 Plug 'mhinz/vim-startify' " Startup menu
 Plug 'ap/vim-buftabline' " Buffery
 Plug 'nvie/vim-flake8' " PEP8 python
 Plug 'rodjek/vim-puppet' " Puppet
-Plug 'wsdjeg/FlyGrep.vim', { 'frozen': 1 } " FlyGrep search - error last commit
 Plug 'christoomey/vim-tmux-navigator' "tmux vim
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' } " Go
 Plug 'chr4/nginx.vim' " syntax for nginx configs
 Plug 'jiangmiao/auto-pairs' " auto druha zatvorka
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 " =================================================
 " Zapnutie farbenia podla syntaxe
 syntax on
 
-" gitgutter config
-set updatetime=250
-nmap hn <Plug>(GitGutterNextHunk)
-nmap hp <Plug>(GitGutterPrevHunk)
-nmap ghp <Plug>(GitGutterPreviewHunk)
+" Color schema
+set background=dark
+let g:gruvbox_contrast_dark = 'hard'
+set termguicolors
+colorscheme gruvbox
 
 " Leader key
 let mapleader = ','
 
-" W sa rovna w
+" X sa rovna x
 command W w
+command Q q
 
 " Neokompatibilny mod s Vi
 set nocompatible
@@ -42,12 +42,6 @@ set noshowmode
 
 " Ziaden uvodny text
 set shortmess+=I
-
-" Color schema
-set background=dark
-let g:gruvbox_contrast_dark = 'hard'
-set termguicolors
-colorscheme gruvbox
 
 " Pocet medzier na jeden tab
 set softtabstop=4
@@ -105,14 +99,14 @@ set hidden
 " Python syntax
 let g:python_highlight_all = 1
 
+" aby sa dalo kopirovat z vim clipboardu priamo do systemoveho clipboardu
+set clipboard=unnamed
+set clipboard=unnamedplus
+
 " Lua file tab na 2 medzeri
 autocmd FileType lua setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType go setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType go setlocal ts=2 sts=2 sw=2 expandtab
-
-" FlyGrep spustenie
-nnoremap <leader>/ :FlyGrep<cr>
-
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " Vypni highlight po konci hladania
 nnoremap <C-c><C-c> :noh<cr>
 
@@ -137,6 +131,11 @@ map gc :bd<cr>
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
 
+" ================= GitGutter nastavenie ====================
+set updatetime=250
+nmap hn <Plug>(GitGutterNextHunk)
+nmap hp <Plug>(GitGutterPrevHunk)
+
 " ================= NerdTree nastavenie ====================
 " Otvor nerdtree
 map <C-n> :NERDTreeToggle<CR>
@@ -147,7 +146,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")
       \ && b:NERDTree.isTabTree()) | q | endif
 
 " =================  Startify nastavenie ===================
-let g:startify_bookmarks = [{'c': '~/.vimrc'}, {'lua': '~/praca/lua'}, {'ng': '~/praca/ng_cdn'}, {'site': '~/praca/new-puppet/site'}, {'hiera': '~/praca/new-puppet/hiera/cdn'}, {'heat': '~/praca/heat'}, {'i3': '~/.config/i3/config'}]
+let g:startify_bookmarks = [{'c': '~/.vim/.vimrc'}, {'lua': '~/praca/lua'}, {'ng': '~/praca/ng_cdn'}, {'site': '~/praca/new-puppet/site'}, {'hiera': '~/praca/new-puppet/hiera/cdn'}, {'heat': '~/praca/heat'}, {'i3': '~/.config/i3/config'}]
 let g:startify_change_to_dir = 1
 let g:startify_change_to_vcs_root = 1
 
@@ -173,11 +172,28 @@ autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" ================== FzF nastavenia =========================
 " FZF :Files hladanie files
 nnoremap <C-p> :Files<Cr>
+nnoremap <leader>/ :Rg<cr>
 
-" aby sa dalo kopirovat z vim clipboardu priamo do systemoveho clipboardu
-set clipboard=unnamedplus
+" ================== CoC nastavenia =========================
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-eslint']
+nnoremap <silent> K :call CocAction('doHover')<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" List problems
+nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
+" Remap keys for applying codeAction to the current line.
+nmap <space>ac <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <space>qf <Plug>(coc-fix-current)
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 "=========================================================
 " Nepouzivaj sipky!
