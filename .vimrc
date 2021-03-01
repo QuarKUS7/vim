@@ -99,10 +99,6 @@ set hidden
 " Python syntax
 let g:python_highlight_all = 1
 
-" aby sa dalo kopirovat z vim clipboardu priamo do systemoveho clipboardu
-set clipboard=unnamed
-set clipboard=unnamedplus
-
 " Lua file tab na 2 medzeri
 autocmd FileType lua setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType go setlocal ts=2 sts=2 sw=2 expandtab
@@ -131,10 +127,13 @@ map gc :bd<cr>
 nmap <S-Enter> O<Esc>
 nmap <CR> o<Esc>
 
+" copy to system clipboard
+noremap <Leader>y "+y
+
 " ================= GitGutter nastavenie ====================
 set updatetime=250
-nmap hn <Plug>(GitGutterNextHunk)
-nmap hp <Plug>(GitGutterPrevHunk)
+nmap eh <Plug>(GitGutterNextHunk)
+nmap rh <Plug>(GitGutterPrevHunk)
 
 " ================= NerdTree nastavenie ====================
 " Otvor nerdtree
@@ -144,6 +143,9 @@ let NERDTreeShowHidden=1
 " Zavri VIM aj nerdthree ak je posledny buffer len nerdthree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree")
       \ && b:NERDTree.isTabTree()) | q | endif
+
+" Otvor nerdthree v ceste aktualneho bufferu
+map <leader>a :NERDTreeFind<cr>
 
 " =================  Startify nastavenie ===================
 let g:startify_bookmarks = [{'c': '~/.vim/.vimrc'}, {'lua': '~/praca/lua'}, {'ng': '~/praca/ng_cdn'}, {'site': '~/praca/new-puppet/site'}, {'hiera': '~/praca/new-puppet/hiera/cdn'}, {'heat': '~/praca/heat'}, {'i3': '~/.config/i3/config'}]
