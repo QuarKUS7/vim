@@ -101,13 +101,11 @@ let g:python_highlight_all = 1
 
 " Lua file tab na 2 medzeri
 autocmd FileType lua setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType sh setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType go setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " Vypni highlight po konci hladania
 nnoremap <C-c><C-c> :noh<cr>
-
-" Z insert mod do Normal mode pomocou jj
-imap jj <Esc>
 
 " Lepsi pohyb pohyb medzi panelmi
 map <C-j> <C-w>j
@@ -122,6 +120,8 @@ map gn :bn<cr>
 map gp :bp<cr>
 " Zavri buffer
 map gc :bd<cr>
+" Novy buffer
+map ge :enew<cr>
 
 " Vlozi prazdny riadok na enter
 nmap <S-Enter> O<Esc>
@@ -129,6 +129,10 @@ nmap <CR> o<Esc>
 
 " copy to system clipboard
 noremap <Leader>y "+y
+
+" Listovanie v medzi navrhmi commandov
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " ================= GitGutter nastavenie ====================
 set updatetime=250
@@ -170,10 +174,6 @@ function! s:build_go_files()
 endfunction
 autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
-" Listovanie v medzi navrhmi commandov
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 " ================== FzF nastavenia =========================
 " FZF :Files hladanie files
 nnoremap <C-p> :Files<Cr>
@@ -181,19 +181,26 @@ nnoremap <leader>/ :Rg<cr>
 
 " ================== CoC nastavenia =========================
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-eslint']
-nnoremap <silent> K :call CocAction('doHover')<CR>
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+nmap <silent> cd <Plug>(coc-definition)
+nmap <silent> cy <Plug>(coc-type-definition)
+nmap <silent> cr <Plug>(coc-references)
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " List problems
 nnoremap <silent> <space>d :<C-u>CocList diagnostics<cr>
-" Remap keys for applying codeAction to the current line.
-nmap <space>ac <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <space>qf <Plug>(coc-fix-current)
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -208,3 +215,8 @@ inoremap <Left>  <ESC>:echoe "Use h"<CR>
 inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
+
+" vyhladavanie v celom projekte s moznostou recur subfolderu
+command! -bang -nargs=+ -complete=dir Rag call fzf#vim#ag_raw(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+"inoremap <silent><expr> <c-space> coc#refresh()
