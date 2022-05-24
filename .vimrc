@@ -16,6 +16,7 @@ Plug 'jiangmiao/auto-pairs' " auto druha zatvorka
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'w0rp/ale'
 call plug#end()
 " =================================================
 " Zapnutie farbenia podla syntaxe
@@ -120,6 +121,8 @@ map gn :bn<cr>
 map gp :bp<cr>
 " Zavri buffer
 map gc :bd<cr>
+" Zavri vsetky buffre, okrem aktualneho
+nnoremap gC :w <bar> %bd <bar> e# <bar> bd# <CR><CR>
 " Novy buffer
 map ge :enew<cr>
 
@@ -178,6 +181,8 @@ autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 " FZF :Files hladanie files
 nnoremap <C-p> :Files<Cr>
 nnoremap <leader>/ :Rg<cr>
+" vyhladavanie v celom projekte s moznostou recur subfolderu
+command! -bang -nargs=+ -complete=dir Rag call fzf#vim#ag_raw(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
 " ================== CoC nastavenia =========================
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier', 'coc-eslint']
@@ -193,7 +198,7 @@ inoremap <silent><expr> <Tab>
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 
-nmap <silent> cd <Plug>(coc-definition)
+nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> cy <Plug>(coc-type-definition)
 nmap <silent> cr <Plug>(coc-references)
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -216,7 +221,4 @@ inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
 inoremap <Down>  <ESC>:echoe "Use j"<CR>
 
-" vyhladavanie v celom projekte s moznostou recur subfolderu
-command! -bang -nargs=+ -complete=dir Rag call fzf#vim#ag_raw(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-
-"inoremap <silent><expr> <c-space> coc#refresh()
+set clipboard=unnamedplus
